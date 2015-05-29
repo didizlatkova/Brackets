@@ -2,7 +2,7 @@ package concrete;
 
 import java.util.Stack;
 
-public class ExpressionCalculator {
+public class ExpressionValidator {
 
 	public boolean isValid(String expression) {
 		// starts with digit
