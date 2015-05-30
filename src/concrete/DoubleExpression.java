@@ -9,18 +9,21 @@ import abstracts.Expression;
 
 public class DoubleExpression implements Expression {
 
+	private static HashMap<Character, Character> bracketTypes;
+	
 	private List<Expression> subexpressions;
 	private String value;
-	private HashMap<Character, Character> bracketTypes;
+	
+	static {
+		bracketTypes = new HashMap<Character, Character>();
+		bracketTypes.put('{', '}');
+		bracketTypes.put('[', ']');
+		bracketTypes.put('(', ')');
+	}
 
 	public DoubleExpression(String value) {
 		this.subexpressions = new ArrayList<Expression>();
 		this.value = value;
-		this.bracketTypes = new HashMap<Character, Character>();
-		this.bracketTypes.put('{', '}');
-		this.bracketTypes.put('[', ']');
-		this.bracketTypes.put('(', ')');
-
 		this.build();
 	}
 
@@ -57,7 +60,7 @@ public class DoubleExpression implements Expression {
 				this.subexpressions.add(terminal);
 			} else {
 				int closingBracketIndex = this.value.indexOf(
-						this.bracketTypes.get(this.value.charAt(i)), i);
+						bracketTypes.get(this.value.charAt(i)), i);
 				String doubleExpressionValue = this.value.substring(i,
 						closingBracketIndex + 1);
 				DoubleExpression doubleExpression = new DoubleExpression(
