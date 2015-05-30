@@ -10,10 +10,10 @@ import abstracts.Expression;
 public class DoubleExpression implements Expression {
 
 	private static HashMap<Character, Character> bracketTypes;
-	
+
 	private List<Expression> subexpressions;
 	private String value;
-	
+
 	static {
 		bracketTypes = new HashMap<Character, Character>();
 		bracketTypes.put('{', '}');
@@ -42,14 +42,15 @@ public class DoubleExpression implements Expression {
 	}
 
 	public void build() {
-		for (int i = 1; i < this.value.length() - 1; i++) {
+		int i = 1;
+		while (i < this.value.length() - 1) {
 			if (Character.isDigit(this.value.charAt(i))) {
 				Stack<Integer> digits = new Stack<Integer>();
 				while (Character.isDigit(this.value.charAt(i))) {
 					digits.push(Character.getNumericValue(this.value.charAt(i)));
 					i++;
 				}
-				i--;
+				
 				int multiplier = 1;
 				int number = 0;
 				while (!digits.isEmpty()) {
@@ -66,7 +67,7 @@ public class DoubleExpression implements Expression {
 				DoubleExpression doubleExpression = new DoubleExpression(
 						doubleExpressionValue);
 				this.subexpressions.add(doubleExpression);
-				i += doubleExpressionValue.length() - 1;
+				i += doubleExpressionValue.length();
 			}
 		}
 	}
